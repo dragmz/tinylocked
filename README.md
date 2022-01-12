@@ -1,4 +1,4 @@
-# tinlocked
+# tinylocked
 
 List assets locked on tinylock for given address
 

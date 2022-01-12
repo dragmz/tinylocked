@@ -17,14 +17,6 @@ class TinyLocked:
     amount: int
     time: int
 
-    def __init__(self, address: str, locker: str, asset: int, amount: int, time: int):
-        self.address = address
-        self.locker = locker
-        self.asset = asset
-        self.amount = amount
-        self.time = time
-
-
 def tinylocked(ac: algod.AlgodClient, address: str) -> Generator[TinyLocked, None, None]:
     info = ac.account_info(address)
 
@@ -52,7 +44,12 @@ def tinylocked(ac: algod.AlgodClient, address: str) -> Generator[TinyLocked, Non
                             if kv['key'] == 'dGltZQ==':  # time
                                 lock_time = kv['value']['uint']
 
-                yield TinyLocked(address, locker_address, locker_asset_id, amount, lock_time)
+                yield TinyLocked(
+                    address=address,
+                    locker=locker_address,
+                    asset=locker_asset_id,
+                    amount=amount,
+                    time=lock_time)
 
 
 if __name__ == '__main__':
